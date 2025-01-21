@@ -1,0 +1,26 @@
+[
+  {
+    "id": "NYC001",
+    "name": "New York",
+    "current_weather": {
+      "temperature": 12.5,
+      "unit": "celsius",
+      "humidity": 65,
+      "wind_speed": 8.2,
+      "conditions": "partly cloudy"
+    },
+    "last_updated": "2025-01-09T10:25:00Z"
+  },
+  {
+    "id": "LON002",
+    "name": "London",
+    "current_weather": {
+      "temperature": 8.3,
+      "unit": "celsius",
+      "humidity": 78,
+      "wind_speed": 12.4,
+      "conditions": "light rain"
+    },
+    "last_updated": "2025-01-09T10:28:00Z"
+  }
+]

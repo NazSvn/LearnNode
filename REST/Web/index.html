@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test API</title>
+  <style>
+    article {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+  <script type="module">
+    fetch('http://localhost:3000/cities').then(res => res.json()).then(cities => {
+      const html = cities.map(city => {
+        return `
+          <article data-id="${city.id}">
+            <h2>${city.name}</h2>
+            <p>${city.current_weather.conditions}<p>
+            <button>Delete</button>
+          </article> `
+      }).join('')
+
+      document.querySelector('main').innerHTML = html
+
+      document.addEventListener('click', (e) => {
+        if (e.target.matches('button')) {
+          const article = e.target.closest('article')
+          const id = article.dataset.id
+
+          fetch(`http://localhost:3000/cities/${id}`, { method: 'DELETE' }).then(res => {
+            if (res.ok) { article.remove() }
+          })
+
+        }
+      })
+
+    })
+  </script>
+</head>
+
+<body>
+  <main>
+  </main>
+</body>
+
+</html>

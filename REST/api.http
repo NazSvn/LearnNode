@@ -1,0 +1,40 @@
+### retrieve data
+GET http://localhost:3000/cities
+
+### retrieve data by id
+GET http://localhost:3000/cities/NYC001
+
+### retrieve data by condition or query
+GET http://localhost:3000/cities?conditions=clo
+
+### create data
+POST http://localhost:3000/cities
+Content-Type: application/json
+
+{
+  "sql": "check al users",
+  "id": "TOK003",
+  "name": "Tokyo",
+  "current_weather": {
+    "temperature": 15.7,
+    "unit": "celsius",
+    "humidity": 62,
+    "wind_speed": 9.8,
+    "conditions": "scattered clouds"
+  },
+  "last_updated": "2025-01-09T10:30:00Z"
+}
+
+### update data
+PATCH http://localhost:3000/cities/NYC001
+Content-Type: application/json 
+
+{"id": "sdaewqra",
+  "name":"New York City",
+   "current_weather": {
+    "temperature": 13 
+  }
+}
+
+### delete data
+DELETE http://localhost:3000/cities/NYC001

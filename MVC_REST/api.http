@@ -1,0 +1,39 @@
+### retrieve data
+GET http://localhost:3000/cities
+
+### retrieve data by id
+GET http://localhost:3000/cities/1f7cef42-d744-11ef-8744-e86a648e3ac4
+
+### retrieve data by condition or query
+GET http://localhost:3000/cities?conditions=partly cloudy
+
+### create data
+POST http://localhost:3000/cities
+Content-Type: application/json
+
+{
+  "sql": "check al users",
+  "id": "TOK003",
+  "name": "Tocoron",
+  "current_weather": {
+    "temperature": 15.7,
+    "unit": "celsius",
+    "humidity": 62,
+    "wind_speed": 9.8,
+    "conditions": "scattered clouds"
+  } 
+}
+
+### update data
+PATCH http://localhost:3000/cities/234ab87e-d742-11ef-8744-e86a648e3ac4
+Content-Type: application/json 
+
+{"id": "sdaewqra",
+  "name":"New York",
+   "current_weather": {
+    "temperature": 24 
+  }
+}
+
+### delete data
+DELETE http://localhost:3000/cities/e650b231-d74d-11ef-8744-e86a648e3ac4
