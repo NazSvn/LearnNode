@@ -7,3 +7,6 @@ logs/
 
 # Ignore environment files
 .env
+
+# ignore HTTP test file
+api.http
