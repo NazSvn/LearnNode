@@ -23,8 +23,26 @@ const UserSchema = z.object({
     })
 })
 
+const loginUserSchema = z.object({ username: z.string(), password: z.string() })
+
 export function validateUser(userData) {
   const result = UserSchema.safeParse(userData)
+
+  if (!result.success) {
+    return {
+      success: false,
+      error: result.error
+    }
+  }
+
+  return {
+    success: true,
+    data: result.data
+  }
+}
+
+export function validateLoginUser(userData) {
+  const result = loginUserSchema.safeParse(userData)
 
   if (!result.success) {
     return {
