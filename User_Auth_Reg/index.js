@@ -1,14 +1,21 @@
 import express from 'express'
 import { PORT } from './config.js'
 import { UserRepository } from './user-repository.js'
+import cors from 'cors'
 
 const app = express()
 
+app.set('view engine', 'ejs')
+app.use(cors())
 app.disable('x-powered-by')
 app.use(express.json())
 
 app.get('/', async (req, res) => {
-  res.send('hello')
+  res.render('index')
+})
+
+app.get('/user-login', async (req, res) => {
+  res.render('login')
 })
 
 app.post('/login', async (req, res) => {
@@ -27,7 +34,10 @@ app.post('/register', async (req, res) => {
   const { username, password } = req.body
 
   try {
-    const id = await UserRepository.create({ username, password })
+    const id = await UserRepository.create({
+      username,
+      password
+    })
     res.status(201).json({ message: 'User created successfully', userId: id })
   } catch (error) {
     console.error(error)
