@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-import { validateUser } from './schema/authSchema.js'
+import { validateLoginUser, validateUser } from './schema/authSchema.js'
 import bcrypt from 'bcrypt'
 import { SALT } from './config.js'
 
@@ -62,7 +62,7 @@ export class UserRepository {
   }
 
   static async login({ username, password }) {
-    const validation = validateUser({ username, password })
+    const validation = validateLoginUser({ username, password })
 
     if (!validation.success) {
       const errorMessages = validation.error.errors
