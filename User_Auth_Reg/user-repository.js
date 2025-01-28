@@ -76,17 +76,17 @@ export class UserRepository {
       [username]
     )
 
-    // eslint-disable-next-line capitalized-comments
-    /* const [existingUserId] = await connection.query(
+    const [existingUserId] = await connection.query(
       'SELECT BIN_TO_UUID(id) as id FROM users WHERE username = ?',
       [username]
-    ) */
+    )
 
     if (existingUser.length === 0) {
       throw new Error('Username does not exist')
     }
 
     const user = existingUser[0]
+    const userId = existingUserId[0]
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
@@ -94,8 +94,6 @@ export class UserRepository {
       throw new Error('Invalid password')
     }
 
-    return {
-      username: user.username
-    }
+    return { id: userId.id, username: user.username }
   }
 }
