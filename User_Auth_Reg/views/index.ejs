@@ -43,27 +43,39 @@
     </p>
     <% } %>
 
-      <% if (typeof username==='undefined' ) { %>
-        <div class="form-container">
-          <form id="registrationForm">
-            <h2>Register</h2>
-            <input type="text" id="username" name="username" placeholder="Username" required minlength="3"
-              maxlength="20" pattern="[a-zA-Z0-9_]+" required>
-            <input type="password" id="password" name="password" placeholder="Password" required minlength="8">
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required
-              minlength="8" required>
-            <button type="submit">Register</button>
-          </form>
-          <p>Already have an account? <a href="/user-login">Login</a></p>
+      <% if (typeof username !=='undefined' ) { %>
+        <div class="welcome">
+          <h2>Welcome, <%= username %>!</h2>
+          <p>You are now logged in.</p>
         </div>
 
+        <form>
+          <button type="submit" class="logout-btn" id="logoutButton">Logout</button>
+        </form>
+        <%} %>
 
-        <% } %>
+          <% if (typeof username==='undefined' ) { %>
+            <div class="form-container">
+              <form id="registrationForm">
+                <h2>Register</h2>
+                <input type="text" id="username" name="username" placeholder="Username" required minlength="3"
+                  maxlength="20" pattern="[a-zA-Z0-9_]+" required>
+                <input type="password" id="password" name="password" placeholder="Password" required minlength="8">
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                  required minlength="8" required>
+                <button type="submit">Register</button>
+              </form>
+              <p>Already have an account? <a href="/user-login">Login</a></p>
+            </div>
+
+
+            <% } %>
 
 </body>
 <script>
   const $ = el => document.querySelector(el)
   const registrationForm = $('#registrationForm')
+  const logoutButton = $('#logoutButton')
 
 
   registrationForm?.addEventListener('submit', async (e) => {
@@ -95,9 +107,28 @@
     } catch (error) {
       console.error('Error:', error)
     }
-  }
+  })
 
-  )
+  logoutButton?.addEventListener('click', async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        window.location.href = '/'
+      } else {
+        const errorData = await response.json()
+        alert(errorData.error)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  })
 </script>
 
 </html>
