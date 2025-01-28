@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .welcome {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .logout-btn {
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="welcome">
+    <h2>Welcome, <%= username %>!</h2>
+    <p>You are now logged in.</p>
+  </div>
+
+  <form>
+    <button type="submit" class="logout-btn" id="logoutButton">Logout</button>
+  </form>
+</body>
+
+<script>
+  const $ = el => document.querySelector(el)
+  const logoutButton = $('#logoutButton')
+
+  logoutButton?.addEventListener('click', async (e) => {
+    e.preventDefault()
+
+    try {
+      const response = await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (response.ok) {
+        window.location.href = '/'
+      } else {
+        const errorData = await response.json()
+        alert(errorData.error)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  })
+</script>
+
+</html>
